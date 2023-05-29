@@ -2,7 +2,7 @@
 <?php
 
 use DannyXCII\EnvironmentManager\Classes\EnvironmentManager;
-use DannyXCII\EnvironmentManager\Enums\CommandStatus;
+use DannyXCII\EnvironmentManager\Classes\Writer;
 
 $localAutoloadPath = sprintf('%s/vendor/autoload.php', dirname(__DIR__));
 $installedAutoloadPath = sprintf('%s/autoload.php', dirname(__DIR__, 3));
@@ -13,8 +13,11 @@ if (file_exists($localAutoloadPath)) {
     require $installedAutoloadPath;
 }
 
+$writer = new Writer();
+
 try {
-    (new EnvironmentManager($argv))->execute();
+    $writer->writeInfo('PHP Environment', true);
+    (new EnvironmentManager($argv, $writer))->execute();
 } catch (\Exception $exception) {
-    echo sprintf('Something went wrong: %s', $exception->getMessage());
+    $writer->writeError(sprintf('Something went wrong: %s', $exception->getMessage()));
 }

@@ -3,20 +3,17 @@
 namespace tests\Unit;
 
 use DannyXCII\EnvironmentManager\Classes\EnvironmentManager;
+use DannyXCII\EnvironmentManager\Classes\Writer;
 use DannyXCII\EnvironmentManager\Exceptions\CommandNotFoundException;
-use DannyXCII\EnvironmentManager\Exceptions\InvalidCommandException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 class EnvironmentManagerTest extends TestCase
 {
-    /**
-     * @throws InvalidCommandException
-     */
     #[Test]
     public function throwsCommandNotFoundExceptionWithInvalidCommandName()
     {
         $this->expectException(CommandNotFoundException::class);
-        new EnvironmentManager(['phpenv', 'load']);
+        new EnvironmentManager(['phpenv', 'load'], new Writer());
     }
 }

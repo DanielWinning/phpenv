@@ -23,7 +23,7 @@ class CommandTest extends TestCase
 
     #[Test]
     #[DataProviderExternal(CommandDataProvider::class, 'validCommandSetupOptions')]
-    public function itSetsCorrectPaths(CommandOptions $options, array $expectedPaths)
+    public function setsCorrectPaths(CommandOptions $options, array $expectedPaths)
     {
         $command = new Command($options);
 

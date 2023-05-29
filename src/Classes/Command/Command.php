@@ -2,6 +2,7 @@
 
 namespace DannyXCII\EnvironmentManager\Classes\Command;
 
+use DannyXCII\EnvironmentManager\Enums\CommandStatus;
 use DannyXCII\EnvironmentManager\Exceptions\InvalidCommandException;
 use DannyXCII\EnvironmentManager\Interface\CommandInterface;
 
@@ -17,11 +18,11 @@ class Command implements CommandInterface
     }
 
     /**
-     * @return bool
+     * @return CommandStatus
      *
      * @throws InvalidCommandException
      */
-    public function execute(): bool
+    public function execute(): CommandStatus
     {
         if (method_exists($this, 'run')) {
             return $this->run();

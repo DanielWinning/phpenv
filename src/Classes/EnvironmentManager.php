@@ -11,15 +11,17 @@ class EnvironmentManager
 {
     private CommandOptions $options;
     private Command $command;
+    private Writer $writer;
 
     private const COMMAND_NAMESPACE = 'DannyXCII\\EnvironmentManager\\Classes\\Command\\Commands\\';
 
     /**
      * @throws CommandNotFoundException
      */
-    public function __construct(array $arguments)
+    public function __construct(array $arguments, Writer $writer)
     {
         $this->options = new CommandOptions($arguments);
+        $this->writer = $writer;
         $this->validateCommand();
 
         return $this;
