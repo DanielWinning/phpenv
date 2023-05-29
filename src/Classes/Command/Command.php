@@ -10,9 +10,6 @@ class Command implements CommandInterface
     protected CommandOptions $options;
     protected array $paths = [];
 
-    public const ERROR = 0;
-    public const SUCCESS = 1;
-
     public function __construct(CommandOptions $options)
     {
         $this->options = $options;

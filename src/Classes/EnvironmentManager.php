@@ -21,6 +21,8 @@ class EnvironmentManager
     {
         $this->options = new CommandOptions($arguments);
         $this->validateCommand();
+
+        return $this;
     }
 
     /**
