@@ -19,6 +19,6 @@ class Command implements CommandInterface
             return;
         }
 
-        throw new InvalidCommandException('The command you are attempting to run has not been configured to run manually.');
+        throw new InvalidCommandException();
     }
 }
