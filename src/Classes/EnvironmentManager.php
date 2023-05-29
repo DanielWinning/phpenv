@@ -16,11 +16,13 @@ class EnvironmentManager
 
     /**
      * @throws CommandNotFoundException
+     * @throws InvalidCommandException
      */
     public function __construct(array $arguments)
     {
         $this->options = new CommandOptions($arguments);
         $this->validateCommand();
+        $this->command->execute();
     }
 
     /**
@@ -36,6 +38,6 @@ class EnvironmentManager
             throw new CommandNotFoundException();
         }
 
-        $this->command = new $className;
+        $this->command = new $className($this->options);
     }
 }

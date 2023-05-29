@@ -7,16 +7,25 @@ use DannyXCII\EnvironmentManager\Interface\CommandInterface;
 
 class Command implements CommandInterface
 {
+    private CommandOptions $options;
+
+    public const ERROR = 0;
+    public const SUCCESS = 1;
+
+    public function __construct(CommandOptions $options)
+    {
+        $this->options = $options;
+    }
+
     /**
-     * @return void
+     * @return bool
      *
      * @throws InvalidCommandException
      */
-    public function execute(): void
+    public function execute(): bool
     {
         if (method_exists($this, 'run')) {
-            $this->run();
-            return;
+            return $this->run();
         }
 
         throw new InvalidCommandException();

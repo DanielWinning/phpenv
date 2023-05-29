@@ -12,4 +12,8 @@ if (file_exists($localAutoloadPath)) {
     require $installedAutoloadPath;
 }
 
-new EnvironmentManager($argv);
+try {
+    new EnvironmentManager($argv);
+} catch (\Exception $exception) {
+    echo sprintf('Something went wrong: %s', $exception->getMessage());
+}

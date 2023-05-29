@@ -4,5 +4,5 @@ namespace DannyXCII\EnvironmentManager\Interface;
 
 interface CommandInterface
 {
-    public function execute(): void;
+    public function execute(): bool;
 }
