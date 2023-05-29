@@ -31,7 +31,13 @@ final class CommandOptions implements CommandOptionsInterface
         foreach ($arguments as $index => $argument) {
             if (!$index) $this->command = ucfirst(strtolower($argument));
 
-            if (!str_contains($argument, '=')) continue;
+            if (!str_contains($argument, '=')) {
+                if ($index === 1) $this->options['name'] = $argument;
+
+                if ($index === 2) $this->options['path'] = $argument;
+
+                continue;
+            }
 
             $exploded = explode('=', $argument);
             $this->options[$exploded[0]] = $exploded[1];
