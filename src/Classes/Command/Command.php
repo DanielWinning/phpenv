@@ -7,7 +7,8 @@ use DannyXCII\EnvironmentManager\Interface\CommandInterface;
 
 class Command implements CommandInterface
 {
-    private CommandOptions $options;
+    protected CommandOptions $options;
+    protected array $paths;
 
     public const ERROR = 0;
     public const SUCCESS = 1;
@@ -29,5 +30,31 @@ class Command implements CommandInterface
         }
 
         throw new InvalidCommandException();
+    }
+
+    /**
+     * @return void
+     */
+    private function setPaths(): void
+    {
+        $projectRoot = dirname(__DIR__, 3);
+
+        $this->paths = [
+            'docker' => sprintf('%s/docker', $projectRoot),
+            'data' => sprintf('%s/docker/data', $projectRoot),
+        ];
+
+        if ($this->options->get('name')) {
+            $this->paths['project'] = sprintf(
+                '%s/docker/data/%s',
+                $projectRoot,
+                $this->options->get('name')
+            );
+            $this->paths['env'] = sprintf(
+                '%s/docker/data/%s/.env',
+                $projectRoot,
+                $this->options->get('name')
+            );
+        }
     }
 }

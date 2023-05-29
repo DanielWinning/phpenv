@@ -14,17 +14,13 @@ class CommandOptionsTest extends TestCase
     #[DataProviderExternal(CommandOptionsProvider::class, 'commandNameTestCases')]
     public function setsCommandName(array $arguments, string $expectedName)
     {
-        $commandOptions = new CommandOptions($arguments);
-
-        $this->assertEquals($commandOptions->getCommandName(), $expectedName);
+        $this->assertEquals((new CommandOptions($arguments))->getCommandName(), $expectedName);
     }
 
     #[Test]
     #[DataProviderExternal(CommandOptionsProvider::class, 'commandOptionValueCases')]
     public function setsCorrectOptionValues(array $arguments, string $optionName, ?string $expectedValue)
     {
-        $commandOptions = new CommandOptions($arguments);
-
-        $this->assertEquals($commandOptions->get($optionName), $expectedValue);
+        $this->assertEquals((new CommandOptions($arguments))->get($optionName), $expectedValue);
     }
 }

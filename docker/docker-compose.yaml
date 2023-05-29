@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    restart: always
+    ports:
+      - "80"
+      - "443"
+    volumes:
+      - ${PROJECT_DIRECTORY}:/var/www/html:cached
+      - ./nginx/conf.d:/etc/nginx/conf.d:cached
+  php:
+    build:
+      context: ./php-fpm
+    working_dir: /var/www/html
+    restart: always
+    volumes:
+      - ${PROJECT_DIRECTORY}:/var/www/html:cached
+  database:
+    image: mysql:8.0
+    command: mysqld --character-set-server=utfmb4 --collation-server=utfmb4_general_ci --lower_case_table_names=2
+    ports:
+      - "3306"
+    expose:
+      - "3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: docker
+    volumes:
+      - ./data/${PROJECT_NAME}/mysql:/var/lib/mysql:cached
+  cache:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379"
+    volumes:
+      - ./data/${PROJECT_NAME}/redis:/data:cached

@@ -9,6 +9,8 @@ class Build extends Command implements RunnableCommandInterface
 {
     public function run(): bool
     {
+        if (!$this->options->get('name') || !$this->options->get('path')) return Command::ERROR;
+
         return Command::SUCCESS;
     }
 }
