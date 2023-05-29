@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+use DannyXCII\EnvironmentManager\Classes\EnvironmentManager;
+
+$localAutoloadPath = sprintf('%s/vendor/autoload.php', dirname(__DIR__));
+$installedAutoloadPath = sprintf('%s/autoload.php', dirname(__DIR__, 3));
+
+if (file_exists($localAutoloadPath)) {
+    require $localAutoloadPath;
+} else {
+    require $installedAutoloadPath;
+}
+
+new EnvironmentManager($argv);
