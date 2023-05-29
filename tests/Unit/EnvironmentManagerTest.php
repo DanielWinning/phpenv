@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 class EnvironmentManagerTest extends TestCase
 {
     #[Test]
-    public function testItThrowsCommandNotFoundExceptionWithInvalidCommandName()
+    public function throwsCommandNotFoundExceptionWithInvalidCommandName()
     {
         $this->expectException(CommandNotFoundException::class);
         new EnvironmentManager(['phpenv', 'load']);
