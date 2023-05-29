@@ -2,10 +2,16 @@
 
 namespace DannyXCII\EnvironmentManager\Classes\Command;
 
+use DannyXCII\EnvironmentManager\Exceptions\InvalidCommandException;
 use DannyXCII\EnvironmentManager\Interface\CommandInterface;
 
 class Command implements CommandInterface
 {
+    /**
+     * @return void
+     *
+     * @throws InvalidCommandException
+     */
     public function execute(): void
     {
         if (method_exists($this, 'run')) {
@@ -13,6 +19,6 @@ class Command implements CommandInterface
             return;
         }
 
-        echo 'This command has not been configured to be ran manually.';
+        throw new InvalidCommandException('The command you are attempting to run has not been configured to run manually.');
     }
 }

@@ -10,11 +10,6 @@ use tests\DataProviders\CommandOptionsProvider;
 
 class CommandOptionsTest extends TestCase
 {
-    public function setsOptions(array $arguments)
-    {
-        $commandOptions = new CommandOptions($arguments);
-    }
-
     #[Test]
     #[DataProviderExternal(CommandOptionsProvider::class, 'commandNameTestCases')]
     public function setsCommandName(array $arguments, string $expectedName)
