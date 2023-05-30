@@ -3,6 +3,7 @@
 
 use DannyXCII\EnvironmentManager\Classes\EnvironmentManager;
 use DannyXCII\EnvironmentManager\Classes\Writer;
+use DannyXCII\EnvironmentManager\Enums\CommandStatus;
 
 $localAutoloadPath = sprintf('%s/vendor/autoload.php', dirname(__DIR__));
 $installedAutoloadPath = sprintf('%s/autoload.php', dirname(__DIR__, 3));
@@ -17,7 +18,15 @@ $writer = new Writer();
 
 try {
     $writer->writeInfo('PHP Environment', true);
-    (new EnvironmentManager($argv, $writer))->execute();
+    $commandOutcome = (new EnvironmentManager($argv, $writer))->execute();
+    $writer->blankLine();
+
+    if ($commandOutcome === CommandStatus::Success) {
+        $writer->writeSuccess('Successfully ran command.');
+        exit;
+    }
+
+    $writer->writeVerboseError();
 } catch (\Exception $exception) {
-    $writer->writeError(sprintf('Something went wrong: %s', $exception->getMessage()));
+    $writer->writeError(sprintf('Error: %s', $exception->getMessage()));
 }

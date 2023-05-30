@@ -10,6 +10,11 @@ class Help extends Command implements RunnableCommandInterface
 {
     public function run(): CommandStatus
     {
+        $this->writer->blankLine();
+        $this->writer->writeInfo('Help:     phpenv help', true);
+        $this->writer->writeInfo('Build:    phpenv name=test path=C:/path/to/project', true);
+        $this->writer->writeInfo('          phpenv test C:/path/to/project', true);
+
         return CommandStatus::Success;
     }
 }

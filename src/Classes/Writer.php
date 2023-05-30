@@ -7,6 +7,8 @@ use DannyXCII\EnvironmentManager\Interface\OutputInterface;
 
 class Writer implements OutputInterface
 {
+    private array $errorBag = [];
+
     /**
      * @param string $message
      * @param bool $emphasis
@@ -32,7 +34,7 @@ class Writer implements OutputInterface
     public function writeError(string $message): void
     {
         echo sprintf(
-            "%s%s%s%s%\n",
+            "%s%s%s%s%s\n",
             Output::Reset->get(),
             Output::Bold->get(),
             Output::TextRed->get(),
@@ -56,5 +58,35 @@ class Writer implements OutputInterface
             $message,
             Output::Reset->get()
         );
+    }
+
+    /**
+     * @return void
+     */
+    public function blankLine(): void
+    {
+        echo "\n";
+    }
+
+    /**
+     * @param string $error
+     *
+     * @return void
+     */
+    public function addError(string $error): void
+    {
+        $this->errorBag[] = $error;
+    }
+
+    /**
+     * @return void
+     */
+    public function writeVerboseError(): void
+    {
+        $this->writeError('Error:');
+
+        foreach ($this->errorBag as $error) {
+            $this->writeError($error);
+        }
     }
 }

@@ -4,13 +4,14 @@ namespace DannyXCII\EnvironmentManager\Classes;
 
 use DannyXCII\EnvironmentManager\Classes\Command\Command;
 use DannyXCII\EnvironmentManager\Classes\Command\CommandOptions;
+use DannyXCII\EnvironmentManager\Enums\CommandStatus;
 use DannyXCII\EnvironmentManager\Exceptions\CommandNotFoundException;
 use DannyXCII\EnvironmentManager\Exceptions\InvalidCommandException;
 
 class EnvironmentManager
 {
-    private CommandOptions $options;
     private Command $command;
+    private CommandOptions $options;
     private Writer $writer;
 
     private const COMMAND_NAMESPACE = 'DannyXCII\\EnvironmentManager\\Classes\\Command\\Commands\\';
@@ -40,16 +41,18 @@ class EnvironmentManager
             throw new CommandNotFoundException();
         }
 
-        $this->command = new $className($this->options);
+        $this->command = new $className($this->options, $this->writer);
     }
 
     /**
-     * @return void
+     * @return CommandStatus
      *
      * @throws InvalidCommandException
      */
-    public function execute(): void
+    public function execute(): CommandStatus
     {
-        $this->command->execute();
+        $this->writer->writeInfo(sprintf('Executing %s Command', $this->options->getCommandName()));
+
+        return $this->command->execute();
     }
 }

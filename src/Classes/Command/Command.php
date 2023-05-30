@@ -2,6 +2,7 @@
 
 namespace DannyXCII\EnvironmentManager\Classes\Command;
 
+use DannyXCII\EnvironmentManager\Classes\Writer;
 use DannyXCII\EnvironmentManager\Enums\CommandStatus;
 use DannyXCII\EnvironmentManager\Exceptions\InvalidCommandException;
 use DannyXCII\EnvironmentManager\Interface\CommandInterface;
@@ -10,10 +11,12 @@ class Command implements CommandInterface
 {
     protected CommandOptions $options;
     protected array $paths = [];
+    protected Writer $writer;
 
-    public function __construct(CommandOptions $options)
+    public function __construct(CommandOptions $options, Writer $writer)
     {
         $this->options = $options;
+        $this->writer = $writer;
         $this->setPaths();
     }
 
