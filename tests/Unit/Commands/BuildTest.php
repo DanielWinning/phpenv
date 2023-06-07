@@ -42,4 +42,25 @@ class BuildTest extends TestCase
 
         $this->assertEquals(CommandStatus::Error, $buildCommand->run());
     }
+
+    #[Test]
+    public function createsConfigurationFiles()
+    {
+        $buildCommand = new Build(new CommandOptions([
+            'phpenv', 'build', 'unit-testing', 'path=C:/Development'
+        ]), new Writer());
+
+        $buildCommand->createConfigurationFiles();
+
+        $this->assertEquals(true, file_exists($buildCommand->getPaths()['project']));
+        $this->assertEquals(true, file_exists($buildCommand->getPaths()['env']));
+
+        if (file_exists($buildCommand->getPaths()['env'])) {
+            unlink($buildCommand->getPaths()['project'] . '/.env');
+        }
+
+        if (file_exists($buildCommand->getPaths()['project'])) {
+            rmdir($buildCommand->getPaths()['project']);
+        }
+    }
 }

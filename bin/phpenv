@@ -22,7 +22,7 @@ try {
     $writer->blankLine();
 
     if ($commandOutcome === CommandStatus::Success) {
-        $writer->writeSuccess('Successfully ran command.');
+        $writer->writeSuccess('Success');
         exit;
     }
 

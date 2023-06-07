@@ -24,6 +24,6 @@ RUN pecl install xdebug \
     && docker-php-ext-enable xdebug redis
 
 COPY ./xdebug.ini "${PHP_INI_DIR}/conf.d"
-COPY ./opcache.init "${PHP_INI_DIR}/conf.d"
+COPY ./opcache.ini "${PHP_INI_DIR}/conf.d"
 
 WORKDIR /var/www/html

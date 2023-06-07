@@ -51,7 +51,9 @@ class EnvironmentManager
      */
     public function execute(): CommandStatus
     {
+        $this->writer->blankLine();
         $this->writer->writeInfo(sprintf('Executing %s Command', $this->options->getCommandName()));
+        $this->writer->blankLine();
 
         return $this->command->execute();
     }
