@@ -19,6 +19,9 @@
             "email": "daniel@winningsoftware.co.uk"
         }
     ],
+    "bin": [
+        "bin/phpenv"
+    ],
     "scripts": {
         "test": "vendor/bin/phpunit --testdox --colors=always"
     },

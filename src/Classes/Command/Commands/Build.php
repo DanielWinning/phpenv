@@ -6,7 +6,7 @@ use DannyXCII\EnvironmentManager\Classes\Command\Command;
 use DannyXCII\EnvironmentManager\Enums\CommandStatus;
 use DannyXCII\EnvironmentManager\Interface\RunnableCommandInterface;
 
-class Build extends Command implements RunnableCommandInterface
+final class Build extends Command implements RunnableCommandInterface
 {
     /**
      * @return CommandStatus
