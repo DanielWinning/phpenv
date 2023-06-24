@@ -9,18 +9,20 @@ use DannyXCII\EnvironmentManager\Interface\RunnableCommandInterface;
 final class Build extends Command implements RunnableCommandInterface
 {
     /**
+     * @return void
+     */
+    protected function initialize(): void
+    {
+        $this->requiredArguments = ['name', 'path'];
+
+        parent::initialize();
+    }
+
+    /**
      * @return CommandStatus
      */
     public function run(): CommandStatus
     {
-        if (!$this->options->get('name') || !$this->options->get('path')) {
-            $this->writer->addError(
-                'Please set both a name for your container and the full path to your project directory.'
-            );
-
-            return CommandStatus::Error;
-        }
-
         if (file_exists($this->getPaths()['project'])) {
             $this->writer->addError('A project with this name is already defined.');
 

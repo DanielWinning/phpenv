@@ -12,12 +12,34 @@ class Command implements CommandInterface
     protected CommandOptions $options;
     protected array $paths = [];
     protected Writer $writer;
+    protected array $requiredArguments = [];
 
     public function __construct(CommandOptions $options, Writer $writer)
     {
         $this->options = $options;
         $this->writer = $writer;
         $this->setPaths();
+        $this->initialize();
+    }
+
+    /**
+     * @return void
+     */
+    protected function initialize(): void
+    {
+        $this->checkRequiredArguments();
+    }
+
+    /**
+     * @return void
+     */
+    protected function checkRequiredArguments(): void
+    {
+        foreach ($this->requiredArguments as $argument) {
+            if (!$this->options->get($argument)) {
+                throw new \InvalidArgumentException(sprintf('Please provide the %s argument.', $argument));
+            }
+        }
     }
 
     /**

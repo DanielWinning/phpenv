@@ -12,11 +12,10 @@ use PHPUnit\Framework\TestCase;
 class BuildTest extends TestCase
 {
     #[Test]
-    public function returnsErrorWhenNoArgumentsArePassed()
+    public function throwsInvalidArgumentExceptionWhenNoArgumentsArePassed()
     {
-        $buildCommand = new Build(new CommandOptions(['phpenv', 'build']), new Writer());
-
-        $this->assertEquals(CommandStatus::Error, $buildCommand->run());
+        $this->expectException(\InvalidArgumentException::class);
+        new Build(new CommandOptions(['phpenv', 'build']), new Writer());
     }
 
     #[Test]

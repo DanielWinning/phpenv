@@ -19,7 +19,6 @@ $writer = new Writer();
 try {
     $writer->writeInfo('PHP Environment', true);
     $commandOutcome = (new EnvironmentManager($argv, $writer))->execute();
-    $writer->blankLine();
 
     if ($commandOutcome === CommandStatus::Success) {
         $writer->writeSuccess('Success');
