@@ -80,7 +80,10 @@ final class Build extends Command implements RunnableCommandInterface
         passthru(sprintf('%s 2>&1', $dockerComposeCommand), $error);
 
         if ($error) {
-            $this->writer->addError('There was an error running the docker-compose command. Review the output above for more information.');
+            $this->writer
+                ->addError(
+                    'There was an error running the docker-compose command. Review the output above for more information.'
+                );
 
             unlink($this->getPaths()['env']);
             rmdir($this->getPaths()['project']);
