@@ -6,8 +6,10 @@ use DannyXCII\EnvironmentManager\Classes\Command\CommandOptions;
 use DannyXCII\EnvironmentManager\Classes\Command\Commands\Build;
 use DannyXCII\EnvironmentManager\Classes\Writer;
 use DannyXCII\EnvironmentManager\Enums\CommandStatus;
+use PHPUnit\Framework\Attributes\DataProviderExternal;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use tests\DataProviders\BuildCommandDataProvider;
 
 class BuildTest extends TestCase
 {
@@ -16,6 +18,14 @@ class BuildTest extends TestCase
     {
         $this->expectException(\InvalidArgumentException::class);
         new Build(new CommandOptions(['phpenv', 'build']), new Writer());
+    }
+
+    #[Test]
+    #[DataProviderExternal(BuildCommandDataProvider::class, 'invalidBuildCommandOptions')]
+    public function throwsInvalidArgumentExceptionWhenOnlyProvidedOneArgument(string $argument)
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new Build(new CommandOptions(['phpenv', 'build', $argument]), new Writer());
     }
 
     #[Test]
