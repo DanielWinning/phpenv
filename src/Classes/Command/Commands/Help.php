@@ -13,10 +13,10 @@ final class Help extends Command implements RunnableCommandInterface
      */
     public function run(): CommandStatus
     {
-        $this->writer->writeInfo('Help:', true);
+        $this->writer->writeInfo('Show:', true);
         $this->writer->writeInfo('-----------');
-        $this->writer->writeInfo('Show a list of available commands.');
-        $this->writer->writeInfo('> phpenv help', true);
+        $this->writer->writeInfo('Lists saved containers.');
+        $this->writer->writeInfo('> phpenv show', true);
         $this->writer->blankLine();
 
         $this->writer->writeInfo('Build:', true);
@@ -47,10 +47,11 @@ final class Help extends Command implements RunnableCommandInterface
         $this->writer->writeInfo('> phpenv destroy project-name', true);
         $this->writer->blankLine();
 
-        $this->writer->writeInfo('Show:', true);
+        $this->writer->writeInfo('Help:', true);
         $this->writer->writeInfo('-----------');
-        $this->writer->writeInfo('Lists saved containers.');
-        $this->writer->writeInfo('> phpenv show', true);
+        $this->writer->writeInfo('Show a list of available commands.');
+        $this->writer->writeInfo('> phpenv help', true);
+        $this->writer->blankLine();
 
         return CommandStatus::Success;
     }
