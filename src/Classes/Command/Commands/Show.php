@@ -12,8 +12,8 @@ final class Show extends Command implements RunnableCommandInterface
     {
         $environments = [];
 
-        if (file_exists($this->getPaths()['data'])) {
-            foreach (new \DirectoryIterator($this->getPaths()['data']) as $item) {
+        if (file_exists($this->getPaths('data'))) {
+            foreach (new \DirectoryIterator($this->getPaths('data')) as $item) {
                 if ($item->isDir() && !str_starts_with($item->getFilename(), '.')) {
                     $environments[] = $item->getFilename();
                 }

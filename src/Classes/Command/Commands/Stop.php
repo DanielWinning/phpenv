@@ -20,7 +20,7 @@ final class Stop extends Command implements RunnableCommandInterface
      */
     public function run(): CommandStatus
     {
-        if (!file_exists($this->getPaths()['project'])) {
+        if ($this->getPaths('project') && !file_exists($this->getPaths('project'))) {
             $this->writer->addError(' A project with this name does not exist in your saved configurations.');
 
             return CommandStatus::Error;
@@ -28,9 +28,9 @@ final class Stop extends Command implements RunnableCommandInterface
 
         passthru(sprintf(
             'cd %s && docker-compose -p %s --env-file=%s stop',
-            $this->getPaths()['docker'],
+            $this->getPaths('docker'),
             $this->options->get('name'),
-            $this->getPaths()['env']
+            $this->getPaths('env')
         ), $error);
 
         if ($error) {

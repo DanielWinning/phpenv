@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit colors="true" bootstrap="vendor/autoload.php" displayDetailsOnTestsThatTriggerWarnings="true">
+<phpunit colors="true"
+         bootstrap="vendor/autoload.php"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         failOnWarning="true"
+         failOnRisky="true">
     <testsuites>
         <testsuite name="Unit Tests">
             <directory>tests\Unit</directory>

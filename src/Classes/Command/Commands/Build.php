@@ -23,7 +23,7 @@ final class Build extends Command implements RunnableCommandInterface
      */
     public function run(): CommandStatus
     {
-        if (file_exists($this->getPaths()['project'])) {
+        if (file_exists($this->getPaths('project'))) {
             $this->writer->addError('A project with this name is already defined.');
 
             return CommandStatus::Error;
@@ -49,10 +49,10 @@ final class Build extends Command implements RunnableCommandInterface
     {
         $this->writer->writeInfo('Creating configuration files...');
 
-        mkdir($this->getPaths()['project']);
+        mkdir($this->getPaths('project'));
 
         file_put_contents(
-            $this->getPaths()['env'],
+            $this->getPaths('env'),
             sprintf(
                 "PROJECT_DIRECTORY=%s\nPROJECT_NAME=%s\n",
                 $this->options->get('path'),
@@ -70,9 +70,9 @@ final class Build extends Command implements RunnableCommandInterface
     {
         $dockerComposeCommand = sprintf(
             'cd %s && docker-compose -p %s --env-file=%s up --build -d',
-            $this->getPaths()['docker'],
+            $this->getPaths('docker'),
             $this->options->get('name'),
-            $this->getPaths()['env']
+            $this->getPaths('env')
         );
 
         $this->writer->writeInfo(' Running docker-compose build command. This may take a while...');
@@ -85,8 +85,8 @@ final class Build extends Command implements RunnableCommandInterface
                     ' There was an error running the docker-compose command. Review the output above for more information.'
                 );
 
-            unlink($this->getPaths()['env']);
-            rmdir($this->getPaths()['project']);
+            unlink($this->getPaths('env'));
+            rmdir($this->getPaths('project'));
 
             return false;
         }

@@ -23,9 +23,9 @@ final class Start extends Command implements RunnableCommandInterface
         if (file_exists($this->getPaths()['project']) && is_dir($this->getPaths()['project'])) {
             passthru(sprintf(
                 'cd %s && docker-compose -p %s --env-file=%s up -d',
-                $this->getPaths()['docker'],
+                $this->getPaths('docker'),
                 $this->options->get('name'),
-                $this->getPaths()['env']
+                $this->getPaths('env')
             ), $error);
 
             if ($error) {

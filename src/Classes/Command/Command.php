@@ -94,10 +94,13 @@ class Command implements CommandInterface
     }
 
     /**
-     * @return array
+     * @param string|null $path
+     *
+     * @return string|array|null
      */
-    public function getPaths(): array
+    public function getPaths(?string $path = null): array|string|null
     {
-        return $this->paths;
+        return !$path ? $this->paths :
+            $this->paths[$path] ?? null;
     }
 }
