@@ -83,10 +83,8 @@ class Writer implements OutputInterface
      */
     public function writeVerboseError(): void
     {
-        $this->writeError('Error:');
-
         foreach ($this->errorBag as $error) {
-            $this->writeError($error);
+            $this->writeError(sprintf(' Error: %s', $error));
         }
     }
 }
