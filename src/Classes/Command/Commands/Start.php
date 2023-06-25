@@ -31,14 +31,14 @@ final class Start extends Command implements RunnableCommandInterface
             if ($error) {
                 $this->writer
                     ->addError(
-                        ' There was an error running the docker-compose command. Review the output above for more information.'
+                        'There was an error running the docker-compose command. Review the output above for more information.'
                     );
 
                 return CommandStatus::Error;
             }
 
             $this->writer->blankLine();
-            $this->writer->writeInfo(' Successfully started your container.');
+            $this->writer->writeInfo('Successfully started your container.');
             $this->writer->blankLine();
 
             return CommandStatus::Success;

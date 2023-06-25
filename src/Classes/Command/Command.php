@@ -90,6 +90,16 @@ class Command implements CommandInterface
                 $projectRoot,
                 $this->options->get('name')
             );
+            $this->paths['mysql'] = sprintf(
+                '%s/docker/data/%s/mysql',
+                $projectRoot,
+                $this->options->get('name')
+            );
+            $this->paths['redis'] = sprintf(
+                '%s/docker/data/%s/redis',
+                $projectRoot,
+                $this->options->get('name')
+            );
         }
     }
 

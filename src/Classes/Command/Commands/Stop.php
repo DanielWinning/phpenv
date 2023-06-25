@@ -21,7 +21,7 @@ final class Stop extends Command implements RunnableCommandInterface
     public function run(): CommandStatus
     {
         if ($this->getPaths('project') && !file_exists($this->getPaths('project'))) {
-            $this->writer->addError(' A project with this name does not exist in your saved configurations.');
+            $this->writer->addError('A project with this name does not exist in your saved configurations.');
 
             return CommandStatus::Error;
         }
@@ -36,7 +36,7 @@ final class Stop extends Command implements RunnableCommandInterface
         if ($error) {
             $this->writer
                 ->addError(
-                    ' There was an error running the docker-compose command. Review the output above for more information.'
+                    'There was an error running the docker-compose command. Review the output above for more information.'
                 );
 
             return CommandStatus::Error;

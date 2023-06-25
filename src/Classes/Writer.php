@@ -18,7 +18,7 @@ class Writer implements OutputInterface
     public function writeInfo(string $message, bool $emphasis = false): void
     {
         echo sprintf(
-            "%s%s%s%s\n",
+            " %s%s%s%s\n",
             Output::Reset->get(),
             $emphasis ? Output::Bold->get() : '',
             $message,
@@ -31,10 +31,12 @@ class Writer implements OutputInterface
      *
      * @return void
      */
-    public function writeError(string $message): void
+    public function writeError(string $message, bool $newLine = true): void
     {
+        $outputFormat = $newLine ? "%s%s%s%s%s\n" : "%s%s%s%s%s";
+
         echo sprintf(
-            "%s%s%s%s%s\n",
+            $outputFormat,
             Output::Reset->get(),
             Output::Bold->get(),
             Output::TextRed->get(),
@@ -51,7 +53,7 @@ class Writer implements OutputInterface
     public function writeSuccess(string $message): void
     {
         echo sprintf(
-            "%s%s%s%s%s\n",
+            " %s%s%s%s%s\n",
             Output::Reset->get(),
             Output::Bold->get(),
             Output::TextGreen->get(),
@@ -83,8 +85,8 @@ class Writer implements OutputInterface
      */
     public function writeVerboseError(): void
     {
-        foreach ($this->errorBag as $error) {
-            $this->writeError(sprintf(' Error: %s', $error));
+        foreach ($this->errorBag as $index => $error) {
+            $this->writeError(sprintf(' Error: %s', $error), $index !== count($this->errorBag) - 1);
         }
     }
 }
