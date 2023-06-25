@@ -111,4 +111,22 @@ class Command implements CommandInterface
         return !$path ? $this->paths :
             $this->paths[$path] ?? null;
     }
+
+    /**
+     * @return bool
+     */
+    protected function isDockerEngineRunning(): bool
+    {
+        exec('docker info 2>&1', $output, $dockerInfoError);
+
+        if ($dockerInfoError) {
+            $this->writer->addError(
+                'It looks like the Docker Engine is not running. Please start it and try again.'
+            );
+
+            return false;
+        }
+
+        return true;
+    }
 }
