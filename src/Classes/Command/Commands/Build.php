@@ -37,7 +37,10 @@ final class Build extends Command implements RunnableCommandInterface
 
         $this->createConfigurationFiles();
 
-        if (!$this->executeDockerBuildCommand()) return CommandStatus::Error;
+        if (!$this->executeDockerBuildCommand())
+        {
+            return CommandStatus::Error;
+        }
 
         return CommandStatus::Success;
     }
@@ -68,6 +71,18 @@ final class Build extends Command implements RunnableCommandInterface
      */
     public function executeDockerBuildCommand(): bool
     {
+        exec('docker info 2>&1', $output, $dockerInfoError);
+
+        if ($dockerInfoError) {
+            $this->writer->addError(
+                'It looks like the Docker Engine is not running. Please start it and try again.'
+            );
+
+            $this->rollbackChanges();
+
+            return false;
+        }
+
         $dockerComposeCommand = sprintf(
             'cd %s && docker-compose -p %s --env-file=%s up --build -d',
             $this->getPaths('docker'),
@@ -77,16 +92,15 @@ final class Build extends Command implements RunnableCommandInterface
 
         $this->writer->writeInfo('Running docker-compose build command. This may take a while...');
 
-        passthru(sprintf('%s 2>&1', $dockerComposeCommand), $error);
+        passthru(sprintf('%s 2>&1', $dockerComposeCommand), $buildCommandError);
 
-        if ($error) {
+        if ($buildCommandError) {
             $this->writer
                 ->addError(
                     'There was an error running the docker-compose command. Review the output above for more information.'
                 );
 
-            unlink($this->getPaths('env'));
-            rmdir($this->getPaths('project'));
+            $this->rollbackChanges();
 
             return false;
         }
@@ -95,5 +109,21 @@ final class Build extends Command implements RunnableCommandInterface
         $this->writer->blankLine();
 
         return true;
+    }
+
+    /**
+     * @return void
+     */
+    private function rollbackChanges(): void
+    {
+        $this->writer->writeInfo('Rolling back config file creation...');
+
+        if (file_exists($this->getPaths('env'))) {
+            unlink($this->getPaths('env'));
+        }
+
+        if (file_exists($this->getPaths('project'))) {
+            rmdir($this->getPaths('project'));
+        }
     }
 }

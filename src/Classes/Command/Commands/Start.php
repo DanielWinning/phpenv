@@ -20,6 +20,16 @@ final class Start extends Command implements RunnableCommandInterface
 
     public function run(): CommandStatus
     {
+        exec('docker info 2>&1', $output, $dockerInfoError);
+
+        if ($dockerInfoError) {
+            $this->writer->addError(
+                'It looks like the Docker Engine is not running. Please start it and try again.'
+            );
+
+            return CommandStatus::Error;
+        }
+
         if (file_exists($this->getPaths()['project']) && is_dir($this->getPaths()['project'])) {
             passthru(sprintf(
                 'cd %s && docker-compose -p %s --env-file=%s up -d',

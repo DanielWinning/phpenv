@@ -33,7 +33,7 @@ class Writer implements OutputInterface
      */
     public function writeError(string $message, bool $newLine = true): void
     {
-        $outputFormat = $newLine ? "%s%s%s%s%s\n" : "%s%s%s%s%s";
+        $outputFormat = $newLine ? " %s%s%s%s%s\n" : " %s%s%s%s%s";
 
         echo sprintf(
             $outputFormat,
@@ -85,8 +85,10 @@ class Writer implements OutputInterface
      */
     public function writeVerboseError(): void
     {
+        $this->blankLine();
+
         foreach ($this->errorBag as $index => $error) {
-            $this->writeError(sprintf(' Error: %s', $error), $index !== count($this->errorBag) - 1);
+            $this->writeError(sprintf('Error: %s', $error), $index !== count($this->errorBag) - 1);
         }
 
         $this->blankLine();
