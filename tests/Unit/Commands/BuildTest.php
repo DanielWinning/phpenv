@@ -35,11 +35,11 @@ class BuildTest extends TestCase
             'phpenv', 'build', 'unit-testing', 'path=unit-testing'
         ]), new Writer());
 
-        mkdir($buildCommand->getPaths()['project']);
+        mkdir($buildCommand->getPaths('project'));
 
         $this->assertEquals(CommandStatus::Error, $buildCommand->run());
 
-        rmdir($buildCommand->getPaths()['project']);
+        rmdir($buildCommand->getPaths('project'));
     }
 
     #[Test]
@@ -61,15 +61,15 @@ class BuildTest extends TestCase
 
         $buildCommand->createConfigurationFiles();
 
-        $this->assertEquals(true, file_exists($buildCommand->getPaths()['project']));
-        $this->assertEquals(true, file_exists($buildCommand->getPaths()['env']));
+        $this->assertEquals(true, file_exists($buildCommand->getPaths('project')));
+        $this->assertEquals(true, file_exists($buildCommand->getPaths('env')));
 
-        if (file_exists($buildCommand->getPaths()['env'])) {
-            unlink($buildCommand->getPaths()['project'] . '/.env');
+        if (file_exists($buildCommand->getPaths('env'))) {
+            unlink($buildCommand->getPaths('project') . '/.env');
         }
 
-        if (file_exists($buildCommand->getPaths()['project'])) {
-            rmdir($buildCommand->getPaths()['project']);
+        if (file_exists($buildCommand->getPaths('project'))) {
+            rmdir($buildCommand->getPaths('project'));
         }
     }
 }
