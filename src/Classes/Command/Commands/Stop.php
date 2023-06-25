@@ -42,6 +42,8 @@ final class Stop extends Command implements RunnableCommandInterface
             return CommandStatus::Error;
         }
 
+        $this->writer->blankLine();
+
         return CommandStatus::Success;
     }
 }

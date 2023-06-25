@@ -88,5 +88,7 @@ class Writer implements OutputInterface
         foreach ($this->errorBag as $index => $error) {
             $this->writeError(sprintf(' Error: %s', $error), $index !== count($this->errorBag) - 1);
         }
+
+        $this->blankLine();
     }
 }

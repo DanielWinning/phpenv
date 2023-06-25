@@ -28,4 +28,5 @@ try {
     $writer->writeVerboseError();
 } catch (\Exception $exception) {
     $writer->writeError(sprintf('Error: %s', $exception->getMessage()));
+    $writer->blankLine();
 }
