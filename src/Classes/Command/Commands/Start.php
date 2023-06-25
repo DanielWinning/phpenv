@@ -18,6 +18,9 @@ final class Start extends Command implements RunnableCommandInterface
         parent::initialize();
     }
 
+    /**
+     * @return CommandStatus
+     */
     public function run(): CommandStatus
     {
         if (!$this->isDockerEngineRunning()) {

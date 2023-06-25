@@ -28,6 +28,7 @@ class Writer implements OutputInterface
 
     /**
      * @param string $message
+     * @param bool $newLine
      *
      * @return void
      */

@@ -69,6 +69,11 @@ class Destroy extends Command implements RunnableCommandInterface
         $this->removeDirectory($this->getPaths('project'));
     }
 
+    /**
+     * @param string $path
+     *
+     * @return void
+     */
     private function removeDirectory(string $path): void
     {
         if (file_exists($path)) {

@@ -8,6 +8,9 @@ use DannyXCII\EnvironmentManager\Interface\RunnableCommandInterface;
 
 final class Stop extends Command implements RunnableCommandInterface
 {
+    /**
+     * @return void
+     */
     protected function initialize(): void
     {
         $this->requiredArguments = ['name'];

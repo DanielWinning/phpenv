@@ -8,6 +8,9 @@ use DannyXCII\EnvironmentManager\Interface\RunnableCommandInterface;
 
 final class Show extends Command implements RunnableCommandInterface
 {
+    /**
+     * @return CommandStatus
+     */
     public function run(): CommandStatus
     {
         $environments = [];
