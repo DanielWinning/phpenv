@@ -17,15 +17,15 @@ if (file_exists($localAutoloadPath)) {
 $writer = new Writer();
 
 try {
-    $writer->writeInfo('PHP Environment', true);
+    $writer->writeInfo(' PHP Environment', true);
     $commandOutcome = (new EnvironmentManager($argv, $writer))->execute();
 
     if ($commandOutcome === CommandStatus::Success) {
-        $writer->writeSuccess('Success');
+        $writer->writeSuccess(' Success');
         exit;
     }
 
     $writer->writeVerboseError();
 } catch (\Exception $exception) {
-    $writer->writeError(sprintf('Error: %s', $exception->getMessage()));
+    $writer->writeError(sprintf(' Error: %s', $exception->getMessage()));
 }

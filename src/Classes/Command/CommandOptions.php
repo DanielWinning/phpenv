@@ -6,7 +6,7 @@ use DannyXCII\EnvironmentManager\Interface\CommandOptionsInterface;
 
 final class CommandOptions implements CommandOptionsInterface
 {
-    private array $options;
+    private array $options = [];
     private string $command;
 
     public function __construct(array $arguments)
@@ -36,6 +36,8 @@ final class CommandOptions implements CommandOptionsInterface
 
                 if ($index === 2) $this->options['path'] = $argument;
 
+                if ($index > 2) $this->options[] = $argument;
+
                 continue;
             }
 
@@ -60,5 +62,13 @@ final class CommandOptions implements CommandOptionsInterface
     public function getCommandName(): string
     {
         return $this->command;
+    }
+
+    /**
+     * @return int
+     */
+    public function countArguments(): int
+    {
+        return count($this->options);
     }
 }

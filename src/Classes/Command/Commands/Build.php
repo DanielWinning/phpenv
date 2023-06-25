@@ -75,14 +75,14 @@ final class Build extends Command implements RunnableCommandInterface
             $this->getPaths()['env']
         );
 
-        $this->writer->writeInfo('Running docker-compose build command. This may take a while...');
+        $this->writer->writeInfo(' Running docker-compose build command. This may take a while...');
 
         passthru(sprintf('%s 2>&1', $dockerComposeCommand), $error);
 
         if ($error) {
             $this->writer
                 ->addError(
-                    'There was an error running the docker-compose command. Review the output above for more information.'
+                    ' There was an error running the docker-compose command. Review the output above for more information.'
                 );
 
             unlink($this->getPaths()['env']);
@@ -91,7 +91,7 @@ final class Build extends Command implements RunnableCommandInterface
             return false;
         }
 
-        $this->writer->writeInfo('Docker container built and running.');
+        $this->writer->writeInfo(' Docker container built and running.');
 
         return true;
     }

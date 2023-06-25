@@ -20,14 +20,24 @@ final class Stop extends Command implements RunnableCommandInterface
      */
     public function run(): CommandStatus
     {
-        if (!$this->options->get('name')) {
-            $this->writer->addError('Please specify the name of the container you wish to stop.');
+        if (!file_exists($this->getPaths()['project'])) {
+            $this->writer->addError(' A project with this name does not exist in your saved configurations.');
 
             return CommandStatus::Error;
         }
 
-        if (!file_exists($this->getPaths()['project'])) {
-            $this->writer->addError('A project with this name does not exist in your saved configurations.');
+        passthru(sprintf(
+            'cd %s && docker-compose -p %s --env-file=%s stop',
+            $this->getPaths()['docker'],
+            $this->options->get('name'),
+            $this->getPaths()['env']
+        ), $error);
+
+        if ($error) {
+            $this->writer
+                ->addError(
+                    ' There was an error running the docker-compose command. Review the output above for more information.'
+                );
 
             return CommandStatus::Error;
         }

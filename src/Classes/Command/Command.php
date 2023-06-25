@@ -35,8 +35,19 @@ class Command implements CommandInterface
      */
     protected function checkRequiredArguments(): void
     {
+        if ($this->options->countArguments() > count($this->requiredArguments)) {
+            $this->writer->blankLine();
+            throw new \InvalidArgumentException(sprintf(
+                'You have passed too many arguments to the %s command. Expected %d arguments, got %d.',
+                $this->options->getCommandName(),
+                count($this->requiredArguments),
+                $this->options->countArguments()
+            ));
+        }
+
         foreach ($this->requiredArguments as $argument) {
             if (!$this->options->get($argument)) {
+                $this->writer->blankLine();
                 throw new \InvalidArgumentException(sprintf('Please provide the %s argument.', $argument));
             }
         }
