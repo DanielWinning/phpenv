@@ -50,18 +50,8 @@ final class Build extends Command implements RunnableCommandInterface
     public function createConfigurationFiles(): void
     {
         $this->writer->writeInfo('Creating configuration files...');
-
         mkdir($this->getPaths('project'));
-
-        file_put_contents(
-            $this->getPaths('env'),
-            sprintf(
-                "PROJECT_DIRECTORY=%s\nPROJECT_NAME=%s\n",
-                $this->options->get('path'),
-                $this->options->get('name')
-            )
-        );
-
+        $this->createEnvFile();
         $this->writer->writeInfo('Configuration files created.');
     }
 
@@ -85,15 +75,15 @@ final class Build extends Command implements RunnableCommandInterface
 
         $this->writer->writeInfo('Running docker-compose build command. This may take a while...');
 
-        ob_start();
+        if (!$this->options->hasFlag('debug')) {
+            ob_start();
+        }
+
         passthru(sprintf('%s 2>&1', $dockerComposeCommand), $buildCommandError);
-//        passthru(sprintf(
-//            'cd %s && docker-compose --env-file=%s run --rm certbot certonly --non-interactive --agree-tos --register-unsafely-without-email --webroot --webroot-path /var/www/certbot/ -d %s.dev',
-//            $this->getPaths('docker'),
-//            $this->getPaths('env'),
-//            $this->options->get('name')
-//        ), $installSSLCommandError);
-        ob_end_clean();
+
+        if (!$this->options->hasFlag('debug')) {
+            ob_end_clean();
+        }
 
         if ($buildCommandError) {
             $this->writer
@@ -115,6 +105,24 @@ final class Build extends Command implements RunnableCommandInterface
     /**
      * @return void
      */
+    private function createEnvFile(): void
+    {
+        $port = $this->options->get('port') ? $this->options->get('port') : $this->generateRandomPort();
+
+        file_put_contents(
+            $this->getPaths('env'),
+            sprintf(
+                "PROJECT_DIRECTORY=%s\nPROJECT_NAME=%s\nNGINX_PORT=%s\n",
+                $this->options->get('path'),
+                $this->options->get('name'),
+                $port
+            )
+        );
+    }
+
+    /**
+     * @return void
+     */
     private function rollbackChanges(): void
     {
         $this->writer->writeInfo('Rolling back config file creation...');
@@ -129,5 +137,25 @@ final class Build extends Command implements RunnableCommandInterface
             );
             ob_end_clean();
         }
+    }
+
+    /**
+     * @return string
+     */
+    private function generateRandomPort(): string
+    {
+        $port = 0;
+
+        $portInUse = true;
+
+        while ($portInUse) {
+            $port = rand(1, 65535);
+
+            if (!is_resource(@fsockopen('localhost', (string) $port))) {
+                $portInUse = false;
+            }
+        }
+
+        return (string) $port;
     }
 }

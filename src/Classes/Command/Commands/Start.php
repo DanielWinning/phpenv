@@ -28,12 +28,20 @@ final class Start extends Command implements RunnableCommandInterface
         }
 
         if (file_exists($this->getPaths()['project']) && is_dir($this->getPaths()['project'])) {
+            if (!$this->options->hasFlag('debug')) {
+                ob_start();
+            }
+
             passthru(sprintf(
                 'cd %s && docker-compose -p %s --env-file=%s up -d',
                 $this->getPaths('docker'),
                 $this->options->get('name'),
                 $this->getPaths('env')
             ), $error);
+
+            if (!$this->options->hasFlag('debug')) {
+                ob_end_clean();
+            }
 
             if ($error) {
                 $this->writer
