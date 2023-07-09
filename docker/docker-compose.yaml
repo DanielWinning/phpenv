@@ -23,7 +23,7 @@ services:
     image: mysql:8.0
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --lower_case_table_names=2
     ports:
-      - "3306"
+      - ${MYSQL_PORT}:3306
     expose:
       - "3306"
     restart: always
@@ -35,6 +35,6 @@ services:
     image: redis:latest
     restart: always
     ports:
-      - "6379"
+      - ${REDIS_PORT}:6379
     volumes:
       - ./data/${PROJECT_NAME}/redis:/data:cached

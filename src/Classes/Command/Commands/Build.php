@@ -8,6 +8,8 @@ use DannyXCII\EnvironmentManager\Interface\RunnableCommandInterface;
 
 final class Build extends Command implements RunnableCommandInterface
 {
+    private array $ports = [];
+
     /**
      * @return void
      */
@@ -98,6 +100,8 @@ final class Build extends Command implements RunnableCommandInterface
 
         $this->writer->writeInfo('Docker container built and running.');
         $this->writer->blankLine();
+        $this->writer->writeInfo(sprintf('Access your application at http://localhost:%s', $this->ports[0]), true);
+        $this->writer->blankLine();
 
         return true;
     }
@@ -107,15 +111,19 @@ final class Build extends Command implements RunnableCommandInterface
      */
     private function createEnvFile(): void
     {
-        $port = $this->options->get('port') ? $this->options->get('port') : $this->generateRandomPort();
+        $nginxPort = $this->generateRandomPort();
+        $mysqlPort = $this->generateRandomPort();
+        $redisPort = $this->generateRandomPort();
 
         file_put_contents(
             $this->getPaths('env'),
             sprintf(
-                "PROJECT_DIRECTORY=%s\nPROJECT_NAME=%s\nNGINX_PORT=%s\n",
+                "PROJECT_DIRECTORY=%s\nPROJECT_NAME=%s\nNGINX_PORT=%s\nMYSQL_PORT=%s\nREDIS_PORT=%s\n",
                 $this->options->get('path'),
                 $this->options->get('name'),
-                $port
+                $nginxPort,
+                $mysqlPort,
+                $redisPort
             )
         );
     }
@@ -151,7 +159,8 @@ final class Build extends Command implements RunnableCommandInterface
         while ($portInUse) {
             $port = rand(1, 65535);
 
-            if (!is_resource(@fsockopen('localhost', (string) $port))) {
+            if (!is_resource(@fsockopen('localhost', (string) $port)) && !in_array($port, $this->ports)) {
+                $this->ports[] = $port;
                 $portInUse = false;
             }
         }
