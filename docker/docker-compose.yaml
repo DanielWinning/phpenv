@@ -10,12 +10,14 @@ services:
       - "443"
     volumes:
       - ${PROJECT_DIRECTORY}:/var/www/html:cached
-      - ./nginx/conf.d:/etc/nginx/conf.d:cached
+      - ./nginx/conf.d:/etc/nginx/conf.d
   php:
     build:
       context: ./php-fpm
     working_dir: /var/www/html
     restart: always
+    extra_hosts:
+      - host.docker.internal:host-gateway
     volumes:
       - ${PROJECT_DIRECTORY}:/var/www/html:cached
   database:

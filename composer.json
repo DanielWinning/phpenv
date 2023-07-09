@@ -1,6 +1,7 @@
 {
     "name": "dannyxcii/phpenv",
     "description": "Easily spin up Docker containers for local PHP development.",
+    "version": "1.0.0",
     "type": "library",
     "license": "MIT",
     "autoload": {

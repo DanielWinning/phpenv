@@ -18,7 +18,7 @@ class Writer implements OutputInterface
     public function writeInfo(string $message, bool $emphasis = false): void
     {
         echo sprintf(
-            " %s%s%s%s\n",
+            "%s%s%s%s\n",
             Output::Reset->get(),
             $emphasis ? Output::Bold->get() : '',
             $message,
@@ -34,7 +34,7 @@ class Writer implements OutputInterface
      */
     public function writeError(string $message, bool $newLine = true): void
     {
-        $outputFormat = $newLine ? " %s%s%s%s%s\n" : " %s%s%s%s%s";
+        $outputFormat = $newLine ? "%s%s%s%s%s\n" : "%s%s%s%s%s";
 
         echo sprintf(
             $outputFormat,
@@ -54,7 +54,7 @@ class Writer implements OutputInterface
     public function writeSuccess(string $message): void
     {
         echo sprintf(
-            " %s%s%s%s%s\n",
+            "%s%s%s%s%s\n",
             Output::Reset->get(),
             Output::Bold->get(),
             Output::TextGreen->get(),

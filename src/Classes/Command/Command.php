@@ -75,6 +75,7 @@ class Command implements CommandInterface
         $this->paths = [
             'docker' => sprintf('%s/docker', $projectRoot),
             'data' => sprintf('%s/docker/data', $projectRoot),
+            'nginx' => sprintf('%s/docker/nginx', $projectRoot),
         ];
 
         if ($this->options->get('name')) {

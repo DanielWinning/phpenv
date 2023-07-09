@@ -33,6 +33,7 @@ class Destroy extends Command implements RunnableCommandInterface
             return CommandStatus::Error;
         }
 
+        ob_start();
         passthru(
             sprintf(
                 'cd %s && docker-compose --env-file=%s -p %s down',
@@ -42,6 +43,7 @@ class Destroy extends Command implements RunnableCommandInterface
             ),
             $error
         );
+        ob_end_clean();
 
         if ($error) {
             $this->writer
@@ -53,6 +55,7 @@ class Destroy extends Command implements RunnableCommandInterface
         }
 
         $this->removeProjectConfigFiles();
+        $this->writer->writeInfo('Successfully removed environment and saved configuration.');
 
         return CommandStatus::Success;
     }

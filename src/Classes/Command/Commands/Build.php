@@ -37,8 +37,7 @@ final class Build extends Command implements RunnableCommandInterface
 
         $this->createConfigurationFiles();
 
-        if (!$this->executeDockerBuildCommand())
-        {
+        if (!$this->executeDockerBuildCommand()) {
             return CommandStatus::Error;
         }
 
@@ -86,7 +85,15 @@ final class Build extends Command implements RunnableCommandInterface
 
         $this->writer->writeInfo('Running docker-compose build command. This may take a while...');
 
+        ob_start();
         passthru(sprintf('%s 2>&1', $dockerComposeCommand), $buildCommandError);
+//        passthru(sprintf(
+//            'cd %s && docker-compose --env-file=%s run --rm certbot certonly --non-interactive --agree-tos --register-unsafely-without-email --webroot --webroot-path /var/www/certbot/ -d %s.dev',
+//            $this->getPaths('docker'),
+//            $this->getPaths('env'),
+//            $this->options->get('name')
+//        ), $installSSLCommandError);
+        ob_end_clean();
 
         if ($buildCommandError) {
             $this->writer
@@ -112,12 +119,15 @@ final class Build extends Command implements RunnableCommandInterface
     {
         $this->writer->writeInfo('Rolling back config file creation...');
 
-        if (file_exists($this->getPaths('env'))) {
-            unlink($this->getPaths('env'));
-        }
-
         if (file_exists($this->getPaths('project'))) {
-            rmdir($this->getPaths('project'));
+            ob_start();
+            passthru(
+                sprintf(
+                    'rm -r %s',
+                    $this->getPaths('project')
+                )
+            );
+            ob_end_clean();
         }
     }
 }
