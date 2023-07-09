@@ -67,9 +67,15 @@ class Destroy extends Command implements RunnableCommandInterface
     {
         unlink($this->getPaths('env'));
 
-        $this->removeDirectory($this->getPaths('mysql'));
-        $this->removeDirectory($this->getPaths('redis'));
-        $this->removeDirectory($this->getPaths('project'));
+        if (!$this->options->hasFlag('debug')) {
+            ob_start();
+        }
+
+        passthru(sprintf('rm -r %s', $this->getPaths('project')));
+
+        if (!$this->options->hasFlag('debug')) {
+            ob_end_clean();
+        }
     }
 
     /**

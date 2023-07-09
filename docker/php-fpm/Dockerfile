@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.2-fpm
 
 RUN mkdir -p /var/ww/html
 RUN mkdir -p /var/www/certbot

@@ -136,14 +136,20 @@ final class Build extends Command implements RunnableCommandInterface
         $this->writer->writeInfo('Rolling back config file creation...');
 
         if (file_exists($this->getPaths('project'))) {
-            ob_start();
+            if (!$this->options->hasFlag('debug')) {
+                ob_start();
+            }
+
             passthru(
                 sprintf(
                     'rm -r %s',
                     $this->getPaths('project')
                 )
             );
-            ob_end_clean();
+
+            if (!$this->options->hasFlag('debug')) {
+                ob_end_clean();
+            }
         }
     }
 
