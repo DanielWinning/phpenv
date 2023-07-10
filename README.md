@@ -1,7 +1,7 @@
 # PHPEnv
 
-A zero-dependency global Composer package for creating pre-configured Docker containers for local
-PHP development.
+A global Composer package for easily creating Docker containers for local PHP development. Allows you to set up containers
+on a project by project basis.
 
 ---
 
@@ -9,7 +9,7 @@ Easily create Docker containers configured for development with Laravel, Symfony
 
 - Nginx
 - MySQL
-- PHP 8.1 + opcache + xdebug
+- PHP 8.2 + opcache + xdebug
 - Redis
 
 ### Installation
@@ -35,3 +35,37 @@ will list the help text.
 
 ---
 
+To run `phpenv` commands, ensure Docker Engine is running.
+
+#### Build
+
+To build a new container for a project you can run the following command:
+
+```
+phpenv build project-name full/path/to/project-root
+```
+
+```
+phpenv build portfolio-site C:/Development/Websites/portfolio-site
+```
+
+This will build a new container for your project and serve files from `your-project-root/public` at `http://localhost:<port>` 
+with the port being a randomly assigned port. Once built your containers ports are static and will not change upon restarting
+your container.
+
+---
+
+### Other Commands:
+
+- `phpenv help`
+  - Displays a list of available commands.
+- `phpenv show` 
+  - Display a list of environments created with **phpenv**.
+- `phpenv start <name>`
+  - Starts a container by saved name. Pass the name you used when running the build command.
+- `phpenv stop <name>`
+  - Stops a running container by saved name.
+- `phpenv destroy <name>`
+  - Destroys a container by saved name.
+- `phpenv attach <name>`
+  - Attach to the bash terminal within your projects container.
