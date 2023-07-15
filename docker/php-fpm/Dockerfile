@@ -12,7 +12,8 @@ RUN apt-get -qq update && apt-get -qq install -y \
     unzip \
     libicu-dev \
     nano \
-    bash
+    bash \
+    dnsutils
 
 RUN docker-php-ext-configure intl > /dev/null
 RUN docker-php-ext-install mysqli \
