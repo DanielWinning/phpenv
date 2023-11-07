@@ -1,5 +1,14 @@
 # PHPEnv
 
+<div>
+<!-- Version Badge -->
+<img src="https://img.shields.io/badge/Version-1.0.2-blue" alt="Version 1.0.2">
+<!-- PHP Coverage Badge -->
+<img src="https://img.shields.io/badge/PHP Coverage-32.92%25-red" alt="PHP Coverage 32.92%">
+<!-- License Badge -->
+<img src="https://img.shields.io/badge/License-GPL--3.0--only-34ad9b" alt="License GPL--3.0--only">
+</div>
+
 A global Composer package for easily creating Docker containers for local PHP development. Allows you to set up containers
 on a project by project basis.
 

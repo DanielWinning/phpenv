@@ -1,0 +1,19 @@
+{
+  "name": "@dannyxcii/phpenv",
+  "description": "A global Composer package for easily creating Docker containers for local PHP development.",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielWinning/phpenv.git"
+  },
+  "keywords": [],
+  "author": "Daniel Winning <daniel@winningsoftware.co.uk>",
+  "license": "GPL-3.0-only",
+  "bugs": {
+    "url": "https://github.com/DanielWinning/phpenv/issues"
+  },
+  "homepage": "https://github.com/DanielWinning/phpenv#readme",
+  "devDependencies": {
+    "@dannyxcii/badger": "^0.4.1"
+  }
+}
