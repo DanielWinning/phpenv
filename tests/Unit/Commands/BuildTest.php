@@ -14,7 +14,7 @@ use tests\DataProviders\BuildCommandDataProvider;
 class BuildTest extends TestCase
 {
     #[Test]
-    public function throwsInvalidArgumentExceptionWhenNoArgumentsArePassed()
+    public function throwsInvalidArgumentExceptionWhenNoArgumentsArePassed(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         new Build(new CommandOptions(['phpenv', 'build']), new Writer());
@@ -22,14 +22,14 @@ class BuildTest extends TestCase
 
     #[Test]
     #[DataProviderExternal(BuildCommandDataProvider::class, 'invalidBuildCommandOptions')]
-    public function throwsInvalidArgumentExceptionWhenOnlyProvidedOneArgument(string $argument)
+    public function throwsInvalidArgumentExceptionWhenOnlyProvidedOneArgument(string $argument): void
     {
         $this->expectException(\InvalidArgumentException::class);
         new Build(new CommandOptions(['phpenv', 'build', $argument]), new Writer());
     }
 
     #[Test]
-    public function returnsErrorWhenProjectNameIsInUse()
+    public function returnsErrorWhenProjectNameIsInUse(): void
     {
         $buildCommand = new Build(new CommandOptions([
             'phpenv', 'build', 'unit-testing', 'path=unit-testing'
@@ -43,7 +43,7 @@ class BuildTest extends TestCase
     }
 
     #[Test]
-    public function returnsErrorWhenPassedInvalidProjectSourceDirectory()
+    public function returnsErrorWhenPassedInvalidProjectSourceDirectory(): void
     {
         $buildCommand = new Build(new CommandOptions([
             'phpenv', 'build', 'unit-testing', 'path=F:/path/does/not/exist'
@@ -53,7 +53,7 @@ class BuildTest extends TestCase
     }
 
     #[Test]
-    public function createsConfigurationFiles()
+    public function createsConfigurationFiles(): void
     {
         $buildCommand = new Build(new CommandOptions([
             'phpenv', 'build', 'unit-testing', 'path=C:/Development'

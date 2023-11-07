@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 class StopTest extends TestCase
 {
     #[Test]
-    public function throwsInvalidArgumentExceptionWhenNoProjectNameIsProvided()
+    public function throwsInvalidArgumentExceptionWhenNoProjectNameIsProvided(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         new Stop(new CommandOptions(['phpenv', 'stop']), new Writer());
