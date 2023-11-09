@@ -24,8 +24,6 @@ class EnvironmentManager
         $this->options = new CommandOptions($arguments);
         $this->writer = $writer;
         $this->validateCommand();
-
-        return $this;
     }
 
     /**
@@ -42,6 +40,14 @@ class EnvironmentManager
         }
 
         $this->command = new $className($this->options, $this->writer);
+    }
+
+    /**
+     * @return Command
+     */
+    public function getCommand(): Command
+    {
+        return $this->command;
     }
 
     /**
