@@ -4,7 +4,7 @@
 <!-- Version Badge -->
 <img src="https://img.shields.io/badge/Version-1.0.2-blue" alt="Version 1.0.2">
 <!-- PHP Coverage Badge -->
-<img src="https://img.shields.io/badge/PHP Coverage-39.66%25-red" alt="PHP Coverage 39.66%">
+<img src="https://img.shields.io/badge/PHP Coverage-50.74%25-red" alt="PHP Coverage 50.74%">
 <!-- License Badge -->
 <img src="https://img.shields.io/badge/License-GPL--3.0--only-34ad9b" alt="License GPL--3.0--only">
 </div>
@@ -27,7 +27,7 @@ Easily create Docker containers configured for development with Laravel, Symfony
 
 **Pre-requisites:**
 
-You will need to following installed before you can make use of **PHPEnv**:
+You will need the following installed before you can make use of **PHPEnv**:
 - Composer
 - Docker Desktop
 
