@@ -2,7 +2,7 @@
 
 <div>
 <!-- Version Badge -->
-<img src="https://img.shields.io/badge/Version-1.1.0-blue" alt="Version 1.1.0">
+<img src="https://img.shields.io/badge/Version-1.1.1-blue" alt="Version 1.1.1">
 <!-- PHP Coverage Badge -->
 <img src="https://img.shields.io/badge/PHP Coverage-50.74%25-red" alt="PHP Coverage 50.74%">
 <!-- License Badge -->
@@ -61,6 +61,9 @@ phpenv build portfolio-site C:/Development/Websites/portfolio-site
 This will build a new container for your project and serve files from `your-project-root/public` at `http://localhost:<port>` 
 with the port being a randomly assigned port. Once built your containers ports are static and will not change upon restarting
 your container.
+
+Your database container name and IP can be found in Docker Desktop or by running the relevant Docker commands. Root 
+credentials are `root:docker`.
 
 ---
 
