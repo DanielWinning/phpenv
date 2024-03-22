@@ -33,7 +33,7 @@ class Attach extends Command implements RunnableCommandInterface
         $this->writer->writeInfo('Attempting to attach to your container...');
 
         $dockerExecCommand = sprintf(
-            'docker exec -it %s-php-1 bash',
+            'docker exec -it %s-php-1 bash -c "cd /var/www/html; exec bash"',
             $this->options->get('name')
         );
 
