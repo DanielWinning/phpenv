@@ -1,11 +1,13 @@
 # PHPEnv | Changelog
 
-## [Unreleased]
+## [1.2.0] - 2024-03-23
 ### Added
-- N/A
+- Added `CHANGELOG.md`
 
 ### Changed
-- N/A
+- Added `coverage` to `xdebug.mode`
+- Added `xdebug.idekey` set to `PHPENV`
+- Attach command now enters into the project directory
 
 ### Deprecated
 - N/A
