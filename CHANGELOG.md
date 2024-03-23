@@ -1,6 +1,6 @@
 # PHPEnv | Changelog
 
-## [Unreleased]
+## [1.3.0] - 2024-03-23
 ### Added
 - Added `nvm`, `node`, `npm` and `npx` to the PHP container [#5](https://github.com/DanielWinning/phpenv/issues/5)
 
