@@ -81,7 +81,7 @@ final class Build extends Command implements RunnableCommandInterface
             ob_start();
         }
 
-        passthru(sprintf('%s', $dockerComposeCommand), $buildCommandError);
+        passthru(sprintf('%s 2>&1', $dockerComposeCommand), $buildCommandError);
 
         if (!$this->options->hasFlag('debug')) {
             ob_end_clean();
