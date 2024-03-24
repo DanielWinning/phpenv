@@ -17,8 +17,8 @@ on a project by project basis.
 Easily create Docker containers configured for development with Laravel, Symfony or plain vanilla PHP, with the following services:
 
 - Nginx
-- MySQL
-- PHP 8.2 + opcache + xdebug
+- MySQL 8
+- PHP 8.3 including OpCache and XDebug
 - Redis
 
 ### Installation
