@@ -43,6 +43,8 @@ final class Build extends Command implements RunnableCommandInterface
             return CommandStatus::Error;
         }
 
+        $this->removeTemporaryIni();
+
         return CommandStatus::Success;
     }
 
@@ -54,6 +56,7 @@ final class Build extends Command implements RunnableCommandInterface
         $this->writer->writeInfo('Creating configuration files...');
         mkdir($this->getPaths('project'));
         $this->createEnvFile();
+        $this->prepareTemporaryXdebugIni();
         $this->writer->writeInfo('Configuration files created.');
     }
 
@@ -148,6 +151,8 @@ final class Build extends Command implements RunnableCommandInterface
                 ob_end_clean();
             }
         }
+
+        $this->removeTemporaryIni();
     }
 
     /**
@@ -174,5 +179,29 @@ final class Build extends Command implements RunnableCommandInterface
         }
 
         return (string) $port;
+    }
+
+    /**
+     * @return void
+     */
+    private function prepareTemporaryXdebugIni(): void
+    {
+        $xdebugPath = sprintf('%s/xdebug.ini', $this->getPaths('php-fpm'));
+        $xdebugTmpPath = sprintf('%s/xdebug.ini.tmp', $this->getPaths('php-fpm'));
+        $xdebugIni = file_get_contents($xdebugPath);
+        $xdebugIni = str_replace('PHP_PORT', $this->ports[3] ?? '9003', $xdebugIni);
+
+        file_put_contents($xdebugTmpPath, $xdebugIni);
+    }
+
+    /**
+     * @return void
+     */
+    private function removeTemporaryIni(): void
+    {
+        $xdebugTmpIni = sprintf('%s/xdebug.ini.tmp', $this->getPaths('php-fpm'));
+
+        unlink($xdebugTmpIni);
+
     }
 }

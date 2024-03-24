@@ -1,11 +1,11 @@
 # PHPEnv | Changelog
 
-## [Unreleased]
+## [1.4.0] - 2024-03-24
 ### Added
-- Additional PHP extensions included by default: `gd, soap, xml, bcmath, exif, mbstring, curl, zip`
+- Additional PHP extensions included by default: `bcmath, exif`
 
 ### Changed
-- Reduced range of dynamic host port generation to avoid conflicts and avoid assigning a "well-known" port
+- Reduced range of dynamic port generation to avoid conflicts and avoid assigning a "well-known" port
 - More robust port checking to prevent ports being assigned that Docker can't access
 
 ### Deprecated
@@ -16,7 +16,7 @@
 
 ### Fixed
 - Fixed typo in `Dockerfile` that was creating extra unneeded directories in the container
-- Fixes [#12](https://github.com/DanielWinning/phpenv/issues/12) - sets dynamic host port for PHP container
+- Fixes [#12](https://github.com/DanielWinning/phpenv/issues/12) - sets dynamic client port for PHP container
 
 ### Security
 - N/A

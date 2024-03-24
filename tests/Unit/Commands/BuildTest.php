@@ -29,6 +29,13 @@ class BuildTest extends TestCase
     }
 
     #[Test]
+    public function throwsInvalidArgumentExceptionIfProvidedTooManyArguments()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        new Build(new CommandOptions(['phpenv', 'build', 'test', 'test', 'test', 'test']), new Writer());
+    }
+
+    #[Test]
     public function returnsErrorWhenProjectNameIsInUse(): void
     {
         $buildCommand = new Build(new CommandOptions([
@@ -61,8 +68,8 @@ class BuildTest extends TestCase
 
         $buildCommand->createConfigurationFiles();
 
-        $this->assertEquals(true, file_exists($buildCommand->getPaths('project')));
-        $this->assertEquals(true, file_exists($buildCommand->getPaths('env')));
+        $this->assertTrue(file_exists($buildCommand->getPaths('project')));
+        $this->assertTrue(file_exists($buildCommand->getPaths('env')));
 
         if (file_exists($buildCommand->getPaths('env'))) {
             unlink($buildCommand->getPaths('project') . '/.env');
@@ -70,6 +77,10 @@ class BuildTest extends TestCase
 
         if (file_exists($buildCommand->getPaths('project'))) {
             rmdir($buildCommand->getPaths('project'));
+        }
+
+        if (file_exists($buildCommand->getPaths('php-fpm') . '/xdebug.ini.tmp')) {
+            unlink($buildCommand->getPaths('php-fpm') . '/xdebug.ini.tmp');
         }
     }
 }
