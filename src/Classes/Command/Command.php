@@ -76,6 +76,7 @@ class Command implements CommandInterface
             'docker' => sprintf('%s/docker', $projectRoot),
             'data' => sprintf('%s/docker/data', $projectRoot),
             'nginx' => sprintf('%s/docker/nginx', $projectRoot),
+            'php-fpm' => sprintf('%s/docker/php-fpm', $projectRoot),
         ];
 
         if ($this->options->get('name')) {

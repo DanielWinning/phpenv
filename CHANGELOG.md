@@ -1,5 +1,28 @@
 # PHPEnv | Changelog
 
+## [1.4.0] - 2024-03-24
+### Added
+- Additional PHP extensions included by default: `bcmath, exif`
+
+### Changed
+- Reduced range of dynamic port generation to avoid conflicts and avoid assigning a "well-known" port
+- More robust port checking to prevent ports being assigned that Docker can't access
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- Fixed typo in `Dockerfile` that was creating extra unneeded directories in the container
+- Fixes [#12](https://github.com/DanielWinning/phpenv/issues/12) - sets dynamic client port for PHP container
+
+### Security
+- N/A
+
+---
+
 ## [1.3.0] - 2024-03-23
 ### Added
 - Added `nvm`, `node`, `npm` and `npx` to the PHP container [#5](https://github.com/DanielWinning/phpenv/issues/5)
