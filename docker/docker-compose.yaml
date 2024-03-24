@@ -18,7 +18,7 @@ services:
     volumes:
       - ${PROJECT_DIRECTORY}:/var/www/html:cached
     ports:
-      - "9003:9003"
+      - ${PHP_PORT}:9003
   database:
     image: mysql:8.0
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --lower_case_table_names=1

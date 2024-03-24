@@ -81,7 +81,7 @@ final class Build extends Command implements RunnableCommandInterface
             ob_start();
         }
 
-        passthru(sprintf('%s 2>&1', $dockerComposeCommand), $buildCommandError);
+        passthru(sprintf('%s', $dockerComposeCommand), $buildCommandError);
 
         if (!$this->options->hasFlag('debug')) {
             ob_end_clean();
@@ -111,19 +111,16 @@ final class Build extends Command implements RunnableCommandInterface
      */
     private function createEnvFile(): void
     {
-        $nginxPort = $this->generateRandomPort();
-        $mysqlPort = $this->generateRandomPort();
-        $redisPort = $this->generateRandomPort();
-
         file_put_contents(
             $this->getPaths('env'),
             sprintf(
-                "PROJECT_DIRECTORY=%s\nPROJECT_NAME=%s\nNGINX_PORT=%s\nMYSQL_PORT=%s\nREDIS_PORT=%s\n",
+                "PROJECT_DIRECTORY=%s\nPROJECT_NAME=%s\nNGINX_PORT=%s\nMYSQL_PORT=%s\nREDIS_PORT=%s\nPHP_PORT=%s",
                 $this->options->get('path'),
                 $this->options->get('name'),
-                $nginxPort,
-                $mysqlPort,
-                $redisPort
+                $this->generateRandomPort(),
+                $this->generateRandomPort(),
+                $this->generateRandomPort(),
+                $this->generateRandomPort()
             )
         );
     }
@@ -163,12 +160,17 @@ final class Build extends Command implements RunnableCommandInterface
         $portInUse = true;
 
         while ($portInUse) {
-            $port = rand(1, 65535);
+            $port = rand(49152, 65535);
 
-            if (!is_resource(@fsockopen('localhost', (string) $port)) && !in_array($port, $this->ports)) {
+            $socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+            $bindResult = @socket_bind($socket, '127.0.0.1', $port);
+
+            if ($bindResult && !in_array($port, $this->ports)) {
                 $this->ports[] = $port;
                 $portInUse = false;
             }
+
+            socket_close($socket);
         }
 
         return (string) $port;
