@@ -55,7 +55,7 @@ phpenv build project-name full/path/to/project-root
 ```
 
 ```
-phpenv build portfolio-site C:/Development/Websites/portfolio-site
+phpenv build portfolio-site /c/Development/Websites/portfolio-site
 ```
 
 This will build a new container for your project and serve files from `your-project-root/public` at `http://localhost:<port>` 
