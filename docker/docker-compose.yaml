@@ -21,7 +21,7 @@ services:
       - ${PHP_PORT}:9003
   database:
     image: mysql:8.0
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --lower_case_table_names=1
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
     ports:
       - ${MYSQL_PORT}:3306
     expose:
