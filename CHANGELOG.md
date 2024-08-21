@@ -1,5 +1,26 @@
 # PHPEnv | Changelog
 
+## [1.4.1] - 2024-08-21
+### Added
+- N/A
+
+### Changed
+- Remove `lower_case_table_names` restriction on MySQL container
+
+### Deprecated
+- N/A
+
+### Removed
+- N/A
+
+### Fixed
+- N/A
+
+### Security
+- N/A
+
+---
+
 ## [1.4.0] - 2024-03-24
 ### Added
 - Additional PHP extensions included by default: `bcmath, exif`
